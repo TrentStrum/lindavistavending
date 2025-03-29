@@ -1,104 +1,96 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { z } from 'zod';
+import { useToast } from '@/hooks/use-toast';
+import { Mail, Phone, Clock, Send } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 
-const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().regex(/^\d{10}$/, "Please enter a valid 10-digit phone number"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-  csrf: z.string(),
+const contactFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Please enter a valid email address'),
+  phone: z.string().regex(/^\d{10}$/, 'Please enter a valid 10-digit phone number'),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
 });
 
-const SUBMIT_COOLDOWN = 60000; // 1 minute cooldown
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export const ContactForm = () => {
   const { toast } = useToast();
-  const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [csrfToken, setCsrfToken] = useState("");
-  const [lastSubmitTime, setLastSubmitTime] = useState(0);
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-      csrf: "",
-    },
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
   });
 
-  useEffect(() => {
-    // Generate CSRF token
-    const token = Math.random().toString(36).substring(2) + Date.now().toString(36);
-    setCsrfToken(token);
-    form.setValue("csrf", token);
-  }, [form]);
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const now = Date.now();
-    if (now - lastSubmitTime < SUBMIT_COOLDOWN) {
-      toast({
-        title: "Please wait",
-        description: "You can only submit once per minute",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (isSubmitting) return;
-    if (values.csrf !== csrfToken) {
-      toast({
-        title: "Error",
-        description: "Invalid form submission",
-        variant: "destructive",
-      });
-      router.refresh();
-      return;
-    }
-    
+  const validateForm = () => {
     try {
-      setIsSubmitting(true);
-      // In production, you'd want to send this to your API
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
-      
-      setLastSubmitTime(now);
+      contactFormSchema.parse(formData);
+      setErrors({});
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors: Partial<Record<keyof ContactFormData, string>> = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            newErrors[err.path[0] as keyof ContactFormData] = err.message;
+          }
+        });
+        setErrors(newErrors);
+      }
+      return false;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
       toast({
         title: "Message sent!",
         description: "We'll get back to you as soon as possible.",
       });
-      form.reset();
-      // Generate new CSRF token after successful submission
-      const newToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
-      setCsrfToken(newToken);
-      form.setValue("csrf", newToken);
-    } catch (error) {
+      setFormData({ name: '', email: '', phone: '', message: '' });
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again.",
+        description: error.message || "Something went wrong. Please try again.",
         variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear error when user starts typing
+    if (errors[name as keyof ContactFormData]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
@@ -118,102 +110,87 @@ export const ContactForm = () => {
           </p>
         </motion.div>
 
-        <div className="max-w-xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+   
+
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
           >
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <input type="hidden" name="csrf" value={csrfToken} />
-                <FormField
-                  control={form.control}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <Input
+                  type="text"
                   name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="John Doe" 
-                          {...field} 
-                          aria-label="Full name"
-                          autoComplete="name"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={errors.name ? 'border-destructive' : ''}
                 />
-                <FormField
-                  control={form.control}
+                {errors.name && (
+                  <p className="text-sm text-destructive mt-1">{errors.name}</p>
+                )}
+              </div>
+
+              <div>
+                <Input
+                  type="email"
                   name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="john@example.com" 
-                          {...field} 
-                          type="email"
-                          aria-label="Email address"
-                          autoComplete="email"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={errors.email ? 'border-destructive' : ''}
                 />
-                <FormField
-                  control={form.control}
+                {errors.email && (
+                  <p className="text-sm text-destructive mt-1">{errors.email}</p>
+                )}
+              </div>
+
+              <div>
+                <Input
+                  type="tel"
                   name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="1234567890" 
-                          {...field} 
-                          type="tel"
-                          aria-label="Phone number"
-                          autoComplete="tel"
-                          pattern="[0-9]*"
-                          inputMode="numeric"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  placeholder="Your Phone Number"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className={errors.phone ? 'border-destructive' : ''}
+                  pattern="[0-9]*"
+                  inputMode="numeric"
                 />
-                <FormField
-                  control={form.control}
+                {errors.phone && (
+                  <p className="text-sm text-destructive mt-1">{errors.phone}</p>
+                )}
+              </div>
+
+              <div>
+                <Textarea
                   name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Message</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="Tell us about your vending needs..."
-                          className="min-h-[120px]"
-                          {...field}
-                          aria-label="Your message"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  className={`min-h-[150px] ${errors.message ? 'border-destructive' : ''}`}
                 />
-                <Button 
-                  type="submit" 
-                  className="w-full bg-blue-500 hover:bg-blue-600"
-                  disabled={isSubmitting}
-                  aria-label={isSubmitting ? "Sending message..." : "Send message"}
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
-              </form>
-            </Form>
+                {errors.message && (
+                  <p className="text-sm text-destructive mt-1">{errors.message}</p>
+                )}
+              </div>
+
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-background border-r-white" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <Send className="ml-2 h-4 w-4" />
+                  </>
+                )}
+              </Button>
+            </form>
           </motion.div>
         </div>
       </div>

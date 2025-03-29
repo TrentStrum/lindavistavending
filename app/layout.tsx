@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: 'Linda Vista Vending - Premium Vending Solutions',
   description: 'Transform your property into a more attractive, amenity-rich destination with Linda Vista Vista\'s premium vending solutions.',
   keywords: 'vending machines, property amenities, San Gabriel Valley, snack vending, beverage vending',
