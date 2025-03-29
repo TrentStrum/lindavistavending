@@ -59,7 +59,7 @@ export default function FAQ() {
           >
             <h1 className="text-4xl font-bold mb-8">Frequently Asked Questions</h1>
             <p className="text-muted-foreground mb-8">
-              Find answers to common questions about our vending services. Can't find what you're looking for? Contact us directly.
+              Find answers to common questions about our vending services. Can&apos;t find what you&apos;re looking for? Contact us directly.
             </p>
 
             <Accordion type="single" collapsible className="w-full">
