@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { QueryProvider } from '@/components/providers/query-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -63,10 +64,12 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className={inter.className}>
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-black">
-          Skip to main content
-        </a>
-        {children}
+        <QueryProvider>
+          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-black">
+            Skip to main content
+          </a>
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );

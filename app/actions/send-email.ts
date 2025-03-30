@@ -1,18 +1,9 @@
 'use server';
 
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import { contactFormSchema } from '@/lib/validations/contact';
 
-// Create reusable transporter object using SMTP transport
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: parseInt(process.env.SMTP_PORT || '587'),
-  secure: false, // true for 465, false for other ports
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 function createEmailTemplate(data: {
   name: string;
@@ -64,23 +55,54 @@ export async function sendEmail(data: {
     }
 
     const emailContent = createEmailTemplate(data);
-    const info = await transporter.sendMail({
-      from: process.env.SMTP_FROM || 'LindaVistaVending <noreply@lindavistavending.com>',
-      to: process.env.SMTP_TO || 'trent.strum@gmail.com',
-      replyTo: data.email,
+    const { data: emailData, error } = await resend.emails.send({
+      from: 'Linda Vista Vending <onboarding@resend.dev>',
+      to: ['trent.strum@gmail.com'],
+      reply_to: data.email,
       subject: `New Contact Form Submission from ${data.name}`,
       html: emailContent.html,
       text: emailContent.text,
     });
 
+    if (error) {
+      console.error('Resend API error:', error);
+      return {
+        error: 'Failed to send email',
+        details: error,
+      };
+    }
+
     return { 
       success: true,
-      id: info.messageId
+      message: 'Email sent successfully',
+      id: emailData?.id
     };
   } catch (error) {
     console.error('Email sending error:', error);
     return {
       error: 'Failed to send email',
+      details: process.env.NODE_ENV === 'development' ? error : undefined,
+    };
+  }
+}
+
+// Test function to verify email sending
+export async function testEmail() {
+  try {
+    const testData = {
+      name: 'Test User',
+      email: 'test@example.com',
+      phone: '1234567890',
+      message: 'This is a test email from the contact form system.',
+    };
+
+    const result = await sendEmail(testData);
+    console.log('Test email result:', result);
+    return result;
+  } catch (error) {
+    console.error('Test email error:', error);
+    return {
+      error: 'Test email failed',
       details: process.env.NODE_ENV === 'development' ? error : undefined,
     };
   }
