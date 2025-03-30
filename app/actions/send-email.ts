@@ -58,7 +58,7 @@ export async function sendEmail(data: {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Linda Vista Vending <onboarding@resend.dev>',
       to: ['trent.strum@gmail.com'],
-      reply_to: data.email,
+      replyTo: data.email,
       subject: `New Contact Form Submission from ${data.name}`,
       html: emailContent.html,
       text: emailContent.text,
