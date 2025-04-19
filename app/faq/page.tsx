@@ -47,15 +47,15 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="min-h-screen py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <main className="flex-1 py-20 bg-background">
+        <div className="container mx-auto px-4 pb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="max-w-4xl mx-auto"
+            className="max-w-4xl mx-auto pt-16"
           >
             <h1 className="text-4xl font-bold mb-8">Frequently Asked Questions</h1>
             <p className="text-muted-foreground mb-8">
@@ -81,8 +81,8 @@ export default function FAQ() {
                 Our team is here to help. Contact us through any of the following methods:
               </p>
               <ul className="space-y-2">
-                <li>Email: info@lindavistavending.com</li>
-                <li>Phone: (626) 555-0123</li>
+                <li>Email: trent.strum@gmail.com</li>
+                <li>Phone: (626) 234-9057</li>
                 <li>Hours: Mon-Fri 8am-6pm, Sat 9am-3pm</li>
               </ul>
             </div>
@@ -90,6 +90,6 @@ export default function FAQ() {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

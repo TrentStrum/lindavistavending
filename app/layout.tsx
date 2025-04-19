@@ -2,25 +2,40 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { QueryProvider } from '@/components/providers/query-provider';
+import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
-  title: 'Linda Vista Vending - Premium Vending Solutions',
-  description: 'Transform your property into a more attractive, amenity-rich destination with Linda Vista Vista\'s premium vending solutions.',
-  keywords: 'vending machines, property amenities, San Gabriel Valley, snack vending, beverage vending',
+  title: 'Linda Vista Vending | Premium Vending Solutions in San Gabriel Valley',
+  description: 'Family-owned vending service providing premium snacks, drinks, and coffee solutions throughout the San Gabriel Valley. Reliable, efficient, and customer-focused.',
+  keywords: ['vending machines', 'San Gabriel Valley', 'snack vending', 'beverage vending', 'coffee vending', 'office vending', 'commercial vending'],
   authors: [{ name: 'Linda Vista Vending' }],
+  creator: 'Linda Vista Vending',
+  publisher: 'Linda Vista Vending',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://lindavistavending.com'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: 'Linda Vista Vending - Premium Vending Solutions',
-    description: 'Transform your property with premium vending solutions in San Gabriel Valley',
+    title: 'Linda Vista Vending | Premium Vending Solutions',
+    description: 'Family-owned vending service providing premium snacks, drinks, and coffee solutions throughout the San Gabriel Valley.',
     url: 'https://lindavistavending.com',
     siteName: 'Linda Vista Vending',
     images: [
       {
-        url: 'https://lindavistavending.com/og-image.jpg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
+        alt: 'Linda Vista Vending Services',
       },
     ],
     locale: 'en_US',
@@ -28,9 +43,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Linda Vista Vending - Premium Vending Solutions',
-    description: 'Premium vending solutions in San Gabriel Valley',
-    images: ['https://lindavistavending.com/twitter-image.jpg'],
+    title: 'Linda Vista Vending | Premium Vending Solutions',
+    description: 'Family-owned vending service providing premium snacks, drinks, and coffee solutions throughout the San Gabriel Valley.',
+    images: ['/twitter-image.jpg'],
   },
   robots: {
     index: true,
@@ -44,7 +59,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code',
+    google: 'your-google-site-verification',
   },
 };
 
@@ -54,7 +69,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html 
+      lang="en" 
+      className={`scroll-smooth antialiased ${inter.variable}`}
+    >
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -63,13 +81,19 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} min-h-screen bg-background text-foreground`}>
         <QueryProvider>
-          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-black">
+          <a 
+            href="#main-content" 
+            className="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:p-4 focus:bg-white focus:text-black"
+          >
             Skip to main content
           </a>
-          {children}
+          <div className="relative flex min-h-screen flex-col">
+            {children}
+          </div>
         </QueryProvider>
+        <Toaster />
       </body>
     </html>
   );

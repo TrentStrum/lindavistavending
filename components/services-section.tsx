@@ -3,36 +3,43 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Image from "next/image";
+import { ImageWithLoading } from "@/components/ui/image-with-loading";
+import { useState } from "react";
 
 const services = [
   {
-    title: "Micro-Markets",
-    description: "Self-service convenience stores with fresh food and beverages",
-    image: "https://images.unsplash.com/photo-1604242692760-2f7b0c26856d?w=800&q=80",
-    features: ["24/7 Access", "Fresh Food", "Cashless Payments"]
-  },
-  {
     title: "Combo Vending",
     description: "Modern machines offering snacks and cold beverages",
-    image: "https://images.unsplash.com/photo-1525789351284-e1e7de240152?w=800&q=80",
-    features: ["Smart Technology", "Digital Payments", "Real-time Monitoring"]
+    image: "/images/services/combo-machine.jpg",
+    features: ["Mix and match snacks and drinks", "Smart Technology with real-time monitoring", "Cashless payment options", "Customizable product selections"]
+  },
+  {
+    title: "Frozen Food Machines",
+    description: "Offer your team more than just snacks — with frozen meals, ice cream, and cold entrees ready any time.",
+    image: "/images/services/frozen-treat.jpg",
+    features: ["Frozen meals, snacks, and treats", "Great for 24/7 or high-shift locations", "UVend™ sanitizing & temp control", "Mobile pay & card reader ready"]
   },
   {
     title: "Coffee Solutions",
-    description: "Premium coffee and espresso machines",
-    image: "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=800&q=80",
-    features: ["Specialty Drinks", "Bean-to-Cup", "Regular Maintenance"]
+    description: "Premium coffee and espresso machines to keep your team energized.",
+    image: "/images/services/coffee.jpg",
+    features: ["Specialty Drinks", "Bean-to-Cup", "Great flavor selection"]
   },
   {
-    title: "Smart Vending",
-    description: "Next-generation machines with touchless technology",
-    image: "https://images.unsplash.com/photo-1597528662465-55ece5734101?w=800&q=80",
-    features: ["Contactless Payments", "Mobile App", "Digital Display"]
+    title: "High-capacity Machines",
+    description: "For locations with high traffic, our high-capacity machines offer more space for your products.",
+    image: "/images/services/snacks.jpg",
+    features: ["Full cashless & ADA-compliant", "Contactless Payments", "Mobile App", "Dual-unit setup for max variety"]
   }
 ];
 
 export const ServicesSection = () => {
+  const [imageLoadError, setImageLoadError] = useState<Record<string, boolean>>({});
+
+  const handleImageError = (serviceTitle: string) => {
+    setImageLoadError(prev => ({ ...prev, [serviceTitle]: true }));
+  };
+
   return (
     <section id="services" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -45,7 +52,7 @@ export const ServicesSection = () => {
         >
           <h2 className="text-4xl font-bold mb-4">Our Services</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Comprehensive vending solutions designed to enhance your space and delight your customers
+            At Linda Vista Vending, we offer a range of vending solutions designed to meet the unique needs of each location.
           </p>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -57,27 +64,34 @@ export const ServicesSection = () => {
               transition={{ duration: 0.3, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full overflow-hidden">
-                <div className="relative w-full">
-                  <AspectRatio ratio={16 / 9}>
-                    <Image
+              <Card className="h-full overflow-hidden group">
+                <div className="relative w-full h-[280px] overflow-hidden">
+                  <AspectRatio ratio={4 / 3} className="h-full">
+                    <ImageWithLoading
                       src={service.image}
                       alt={service.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      priority={index < 2}
+                      quality={90}
+                      onError={(e) => {
+                        console.error(`Error loading image for ${service.title}:`, service.image, e);
+                        handleImageError(service.title);
+                      }}
                     />
                   </AspectRatio>
                 </div>
-                <CardHeader>
-                  <CardTitle>{service.title}</CardTitle>
+                <CardHeader className="space-y-1">
+                  <CardTitle className="text-2xl font-bold">{service.title}</CardTitle>
+                  <p className="text-muted-foreground text-sm">{service.description}</p>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground mb-4">{service.description}</p>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2.5">
                     {service.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                        <span className="text-sm">{feature}</span>
+                      <li key={i} className="flex items-center gap-3">
+                        <div className="h-2 w-2 rounded-full bg-blue-500" />
+                        <span className="text-sm text-muted-foreground">{feature}</span>
                       </li>
                     ))}
                   </ul>
