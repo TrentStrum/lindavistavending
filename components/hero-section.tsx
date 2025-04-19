@@ -25,7 +25,7 @@ export const HeroSection = () => {
               size="lg" 
               className="bg-[#87CEEB] hover:bg-[#87CEEB]/90 text-base md:text-lg px-8"
             >
-              Get Started <ArrowRight className="ml-2 h-5 w-5" />
+              Let&apos;s make your business a little more delicious! <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
         </motion.div>

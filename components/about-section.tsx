@@ -142,7 +142,7 @@ export const AboutSection = () => {
 								<div className="w-2 h-2 bg-blue-400 rounded-full" />
 								<p className="text-sm font-medium">Our team at work</p>
 							</div>
-							<p className="text-lg font-semibold">Making every vending experience special</p>
+							<p className="text-lg font-semibold">Making your business a little more delicious</p>
 							<p className="text-sm opacity-80 mt-2">Family-owned and operated with care</p>
 						</div>
 					</motion.div>
