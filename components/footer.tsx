@@ -1,6 +1,6 @@
 "use client";
 
-import { Coffee } from "lucide-react";
+import { Mountain } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 const footerLinks = {
@@ -32,8 +32,8 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Coffee className="h-6 w-6 text-blue-500" />
-              <span className="font-bold text-xl">VendingCo</span>
+              <Mountain className="h-6 w-6 text-blue-500" />
+              <span className="font-bold text-xl">Linda Vista Vending</span>
             </div>
             <p className="text-sm text-muted-foreground">
               Premium vending solutions for properties throughout the San Gabriel Valley.
