@@ -18,7 +18,7 @@ const footerLinks = {
     { name: "Accessibility", href: "/accessibility" },
   ],
   Contact: [
-    { name: "info@lindavistavending.com", href: "mailto:info@lindavistavending.com" },
+    { name: "lindavistavending@gmail.com", href: "mailto:lindavistavending@gmail.com" },
     { name: "(626) 555-0123", href: "tel:+16265550123" },
     { name: "Mon-Fri: 8am-6pm", href: "#" },
     { name: "Sat: 9am-3pm", href: "#" },

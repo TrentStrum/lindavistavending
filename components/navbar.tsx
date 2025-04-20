@@ -80,7 +80,10 @@ export const Navbar = () => {
           </Button>
 
           {/* Desktop CTA Button */}
-          <Button className="hidden md:flex bg-blue-500 hover:bg-blue-600">
+          <Button 
+            className="hidden md:flex bg-blue-500 hover:bg-blue-600"
+            onClick={() => window.location.href = '/#coverage'}
+          >
             Get Started
           </Button>
         </nav>
@@ -149,7 +152,10 @@ export const Navbar = () => {
                 <div className="p-6 border-t">
                   <Button 
                     className="w-full bg-blue-500 hover:bg-blue-600 text-lg py-6" 
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      window.location.href = '/#coverage';
+                    }}
                   >
                     Get Started
                   </Button>
