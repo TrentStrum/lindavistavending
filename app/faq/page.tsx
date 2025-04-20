@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: "What areas do you service?",
-    answer: "We primarily service the San Gabriel Valley area, including cities such as Pasadena, Alhambra, San Gabriel, Temple City, and surrounding areas. Contact us to check if your location is within our service area."
+    answer: "We primarily service the San Gabriel Valley area, including cities such as Pasadena, Alhambra, San Gabriel, South Pasadena, Monterey Park, Glendale, and surrounding areas. Contact us to check if your location is within our service area."
   },
   {
     question: "How often are machines restocked?",
@@ -81,9 +81,9 @@ export default function FAQ() {
                 Our team is here to help. Contact us through any of the following methods:
               </p>
               <ul className="space-y-2">
-                <li>Email: trent.strum@gmail.com</li>
-                <li>Phone: (626) 234-9057</li>
-                <li>Hours: Mon-Fri 8am-6pm, Sat 9am-3pm</li>
+                <li>Email: lindavistavending@gmail.com</li>
+                <li>Phone: (626) 869-6457</li>
+                <li>Hours: Mon-Fri 8am-6pm, Sat 9am-4pm</li>
               </ul>
             </div>
           </motion.div>
