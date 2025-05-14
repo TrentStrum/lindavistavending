@@ -118,7 +118,7 @@ export const CoverageArea = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold mb-4">Service Coverage</h2>
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Service Coverage</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Proudly serving the San Gabriel Valley and surrounding areas
           </p>
@@ -131,7 +131,7 @@ export const CoverageArea = () => {
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-semibold mb-6">Service Areas</h3>
+            <h3 className="text-2xl font-semibold mb-6 text-primary">Service Areas</h3>
             <div className="grid grid-cols-2 gap-4">
               {serviceAreas.map((area) => (
                 <div
@@ -151,7 +151,7 @@ export const CoverageArea = () => {
             viewport={{ once: true }}
             className="bg-gray-50 p-6 rounded-lg"
           >
-            <h3 className="text-2xl font-semibold mb-6">Check Your ZIP Code</h3>
+            <h3 className="text-2xl font-semibold mb-6 text-primary">Check Your ZIP Code</h3>
             <div className="space-y-4">
               <Input
                 type="text"
@@ -168,7 +168,7 @@ export const CoverageArea = () => {
               />
               <Button 
                 onClick={checkZipCode}
-                className="w-full bg-blue-500 hover:bg-blue-600"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
               >
                 Check Availability
               </Button>

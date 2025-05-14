@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { QueryProvider } from '@/components/providers/query-provider';
 import { Toaster } from "@/components/ui/toaster";
+import { FloatingPhoneDock } from "@/components/floating-phone-dock";
+import { MobileMenuProvider } from "@/contexts/mobile-menu-context";
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -82,17 +84,20 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className={`${inter.className} min-h-screen bg-background text-foreground`}>
-        <QueryProvider>
-          <a 
-            href="#main-content" 
-            className="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:p-4 focus:bg-white focus:text-black"
-          >
-            Skip to main content
-          </a>
-          <div className="relative flex min-h-screen flex-col">
-            {children}
-          </div>
-        </QueryProvider>
+        <MobileMenuProvider>
+          <QueryProvider>
+            <a 
+              href="#main-content" 
+              className="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:p-4 focus:bg-white focus:text-black"
+            >
+              Skip to main content
+            </a>
+            <div className="relative flex min-h-screen flex-col">
+              {children}
+            </div>
+            <FloatingPhoneDock />
+          </QueryProvider>
+        </MobileMenuProvider>
         <Toaster />
       </body>
     </html>

@@ -109,8 +109,8 @@ export default function TermsOfService() {
               <address className="not-italic mt-2">
                 Linda Vista Vending<br />
                 Legal Department<br />
-                Email: legal@lindavistavending.com<br />
-                Phone: (626) 555-0123
+                Email: lindavistavending@gmail.com<br />
+                Phone: (626) 869-6457
               </address>
             </section>
           </motion.div>

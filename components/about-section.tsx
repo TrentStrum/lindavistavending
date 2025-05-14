@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
-import { Award, Clock, Heart, Shield } from 'lucide-react';
+import { Award, Clock, Heart, Shield, MapPin } from 'lucide-react';
 
 const values = [
 	{
@@ -39,7 +39,7 @@ export const AboutSection = () => {
 					viewport={{ once: true }}
 					className="text-center mb-12"
 				>
-					<h2 className="text-4xl font-bold mb-4">About Us</h2>
+					<h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">About Us</h2>
 					<p className="text-muted-foreground max-w-2xl mx-auto">
 						A family-owned business committed to excellence in vending services
 					</p>
@@ -54,32 +54,32 @@ export const AboutSection = () => {
 						className="space-y-8"
 					>
 						<div className="relative">
-							<div className="absolute -left-4 -top-4 w-16 h-16 bg-blue-100 rounded-full opacity-50" />
-							<div className="absolute -right-4 -bottom-4 w-16 h-16 bg-blue-100 rounded-full opacity-50" />
+							<div className="absolute -left-4 -top-4 w-16 h-16 bg-primary/10 rounded-full opacity-50" />
+							<div className="absolute -right-4 -bottom-4 w-16 h-16 bg-primary/10 rounded-full opacity-50" />
 							<div className="relative flex items-center gap-3 mb-6">
-								<div className="p-2 bg-blue-500 rounded-lg">
+								<div className="p-2 bg-primary rounded-lg">
 									<Heart className="w-6 h-6 text-white" />
 								</div>
-								<h3 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Our Story</h3>
+								<h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Our Story</h3>
 							</div>
 						</div>
 						
 						<div className="space-y-6">
 							<div className="relative">
-								<div className="absolute -left-4 top-0 bottom-0 w-1 bg-blue-100 rounded-full" />
+								<div className="absolute -left-4 top-0 bottom-0 w-1 bg-primary/10 rounded-full" />
 								<p className="text-muted-foreground pl-6">
-									At <span className="font-bold text-blue-600">Linda Vista Vending</span>, we may be new to the San Gabriel Valley — but we&apos;ve already
-									fallen in love with the community we now call home.
+									At <span className="font-bold text-primary">Linda Vista Vending</span>, we may be new to the San Gabriel Valley — but we&apos;ve already
+									fell in love with the community we now call home.
 								</p>
 							</div>
 							
-							<div className="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl border border-blue-100 shadow-sm hover:shadow-md transition-shadow">
+							<div className="bg-gradient-to-br from-secondary/10 to-white p-6 rounded-xl border border-secondary/30 shadow-sm hover:shadow-md transition-shadow">
 								<div className="flex items-start gap-4">
-									<div className="p-2 bg-blue-100 rounded-lg">
-										<Award className="w-5 h-5 text-blue-600" />
+									<div className="p-2 bg-secondary/30 rounded-lg">
+										<Award className="w-5 h-5 text-primary" />
 									</div>
 									<p className="text-muted-foreground">
-										Founded by <span className="font-semibold text-blue-600">three generations</span> of a local family — husband and wife, grandparents, and
+										Founded by <span className="font-semibold text-primary">three generations</span> of a local family — husband and wife, grandparents, and
 										even a curious toddler in tow — our business was born out of a simple desire: to make
 										everyday moments better by offering great snacks, drinks, and coffee to the community
 										we love.
@@ -90,7 +90,7 @@ export const AboutSection = () => {
 							<div className="grid grid-cols-2 gap-4">
 								<div className="bg-gray-50 p-4 rounded-lg">
 									<div className="flex items-center gap-2 mb-2">
-										<Heart className="w-4 h-4 text-blue-500" />
+										<Heart className="w-4 h-4 text-primary" />
 										<h4 className="font-semibold text-sm">Family Values</h4>
 									</div>
 									<p className="text-sm text-muted-foreground">
@@ -99,7 +99,7 @@ export const AboutSection = () => {
 								</div>
 								<div className="bg-gray-50 p-4 rounded-lg">
 									<div className="flex items-center gap-2 mb-2">
-										<Shield className="w-4 h-4 text-blue-500" />
+										<Shield className="w-4 h-4 text-primary" />
 										<h4 className="font-semibold text-sm">Direct Service</h4>
 									</div>
 									<p className="text-sm text-muted-foreground">
@@ -108,14 +108,14 @@ export const AboutSection = () => {
 								</div>
 							</div>
 
-							<div className="bg-gradient-to-r from-blue-50 to-white p-6 rounded-xl border border-blue-100">
+							<div className="bg-gradient-to-r from-secondary/10 to-white p-6 rounded-xl border border-secondary/30">
 								<div className="flex items-center gap-3 mb-3">
-									<Clock className="w-5 h-5 text-blue-600" />
-									<h4 className="font-semibold text-blue-600">Our Promise</h4>
+									<Clock className="w-5 h-5 text-primary" />
+									<h4 className="font-semibold text-primary">Our Promise</h4>
 								</div>
 								<p className="text-muted-foreground">
-									We believe vending should be more than just convenient. It should be <span className="font-semibold text-blue-600">reliable</span>,
-									<span className="font-semibold text-blue-600"> thoughtful</span>, and a small act of <span className="font-semibold text-blue-600">hospitality</span> — every time someone walks up to one of our
+									We believe vending should be more than just convenient. It should be <span className="font-semibold text-primary">reliable</span>,
+									<span className="font-semibold text-primary"> thoughtful</span>, and a small act of <span className="font-semibold text-primary">hospitality</span> — every time someone walks up to one of our
 									machines.
 								</p>
 							</div>
@@ -127,23 +127,29 @@ export const AboutSection = () => {
 						whileInView={{ opacity: 1, x: 0 }}
 						transition={{ duration: 0.3 }}
 						viewport={{ once: true }}
-						className="relative h-[600px] rounded-2xl overflow-hidden shadow-xl"
+						className="relative h-full rounded-2xl overflow-hidden shadow-xl"
 					>
 						<Image
-							src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80"
+							src="/images/family.jpg"
 							alt="Team meeting"
 							fill
 							className="object-cover"
 							priority
 						/>
-						<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-						<div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-							<div className="flex items-center gap-3 mb-2">
-								<div className="w-2 h-2 bg-blue-400 rounded-full" />
-								<p className="text-sm font-medium">Our team at work</p>
+						<div className="absolute inset-0 bg-black/20 z-5 pointer-events-none" />
+						<div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black/90 via-black/60 to-transparent z-10" />
+						<div className="absolute top-0 left-0 right-0 flex flex-col items-start p-8 z-20">
+							<div className="backdrop-blur-md bg-black/40 rounded-xl px-6 py-4 shadow-lg">
+								<h3 className="text-2xl font-bold mb-1 text-white drop-shadow-md">Making your business a little more delicious</h3>
+								<div className="w-10 h-1 bg-accent rounded-full mb-2" />
+								<p className="text-base opacity-90 text-white drop-shadow">Family-owned and operated with care</p>
 							</div>
-							<p className="text-lg font-semibold">Making your business a little more delicious</p>
-							<p className="text-sm opacity-80 mt-2">Family-owned and operated with care</p>
+						</div>
+						<div className="absolute bottom-0 left-0 right-0 p-8 z-20">
+							<div className="inline-flex items-center gap-2 px-4 py-2 bg-black/50 backdrop-blur-sm rounded-full">
+								<MapPin className="w-4 h-4 text-accent" />
+								<p className="text-sm font-medium text-white">San Gabriel Mission Playhouse</p>
+							</div>
 						</div>
 					</motion.div>
 				</div>
@@ -161,7 +167,7 @@ export const AboutSection = () => {
 							>
 								<Card className="text-center h-full">
 									<CardContent className="pt-6">
-										<Icon className="w-12 h-12 mx-auto mb-4 text-blue-500" />
+										<Icon className="w-12 h-12 mx-auto mb-4 text-primary" />
 										<h3 className="text-lg font-semibold mb-2">{value.title}</h3>
 										<p className="text-sm text-muted-foreground">{value.description}</p>
 									</CardContent>

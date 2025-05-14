@@ -103,6 +103,12 @@ export const ContactForm = ({ onSuccess, onError, className }: ContactFormProps)
       transition={{ duration: 0.5 }}
       className={cn("max-w-2xl mx-auto", className)}
     >
+      <div className="text-center mb-8">
+        <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Contact Us</h2>
+        <p className="text-muted-foreground">
+          We&apos;d love to hear from you. Fill out the form below and we&apos;ll get back to you as soon as possible.
+        </p>
+      </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">

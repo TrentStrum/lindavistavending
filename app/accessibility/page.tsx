@@ -72,8 +72,8 @@ export default function Accessibility() {
               <address className="not-italic mt-2">
                 Linda Vista Vending<br />
                 Accessibility Team<br />
-                Email: accessibility@lindavistavending.com<br />
-                Phone: (626) 555-0123
+                Email: lindavistavending@gmail.com<br />
+                Phone: (626) 869-6457
               </address>
             </section>
           </motion.div>

@@ -41,7 +41,7 @@ export const ServicesSection = () => {
   };
 
   return (
-    <section id="services" className="py-20 bg-gray-50">
+    <section id="services" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0 }}
@@ -50,7 +50,7 @@ export const ServicesSection = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold mb-4">Our Services</h2>
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Our Services</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             At Linda Vista Vending, we offer a range of vending solutions designed to meet the unique needs of each location.
           </p>
@@ -64,7 +64,7 @@ export const ServicesSection = () => {
               transition={{ duration: 0.3, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full overflow-hidden group">
+              <Card className="h-full overflow-hidden group hover:shadow-lg transition-shadow duration-300">
                 <div className="relative w-full h-[280px] overflow-hidden">
                   <AspectRatio ratio={4 / 3} className="h-full">
                     <ImageWithLoading
@@ -83,14 +83,14 @@ export const ServicesSection = () => {
                   </AspectRatio>
                 </div>
                 <CardHeader className="space-y-1">
-                  <CardTitle className="text-2xl font-bold">{service.title}</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-primary">{service.title}</CardTitle>
                   <p className="text-muted-foreground text-sm">{service.description}</p>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2.5">
                     {service.features.map((feature, i) => (
                       <li key={i} className="flex items-center gap-3">
-                        <div className="h-2 w-2 rounded-full bg-blue-500" />
+                        <div className="h-2 w-2 rounded-full bg-secondary" />
                         <span className="text-sm text-muted-foreground">{feature}</span>
                       </li>
                     ))}

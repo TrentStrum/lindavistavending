@@ -1,7 +1,8 @@
 "use client";
 
-import { Mountain } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import Image from "next/image";
 
 const footerLinks = {
   Company: [
@@ -20,8 +21,7 @@ const footerLinks = {
   Contact: [
     { name: "lindavistavending@gmail.com", href: "mailto:lindavistavending@gmail.com" },
     { name: "(626) 869-6457", href: "tel:+16268696457" },
-    { name: "Mon-Fri: 8am-6pm", href: "#" },
-    { name: "Sat: 9am-4pm", href: "#" },
+    { name: "Open Daily: 7am-9pm", href: "#" },
   ],
 };
 
@@ -32,8 +32,15 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Mountain className="h-6 w-6 text-blue-500" />
-              <span className="font-bold text-xl">Linda Vista Vending</span>
+                        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Image
+              src="/images/logo.png"
+              alt="Linda Vista Vending"
+              className="h-auto w-auto"
+              width={100}
+              height={100}
+            />
+          </Link>
             </div>
             <p className="text-sm text-muted-foreground">
               Premium vending solutions for properties throughout the San Gabriel Valley.
@@ -68,7 +75,7 @@ export const Footer = () => {
               href="https://joviancloudworks.io" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-blue-500 hover:text-blue-600 transition-colors"
+              className="text-primary hover:text-primary/80 transition-colors"
             >
               JovianCloudWorks.io
             </a>

@@ -57,7 +57,7 @@ export default function FAQ() {
             transition={{ duration: 0.3 }}
             className="max-w-4xl mx-auto pt-16"
           >
-            <h1 className="text-4xl font-bold mb-8">Frequently Asked Questions</h1>
+            <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Frequently Asked Questions</h1>
             <p className="text-muted-foreground mb-8">
               Find answers to common questions about our vending services. Can&apos;t find what you&apos;re looking for? Contact us directly.
             </p>
@@ -65,7 +65,7 @@ export default function FAQ() {
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-left">
+                  <AccordionTrigger className="text-left text-primary">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent>
@@ -75,15 +75,15 @@ export default function FAQ() {
               ))}
             </Accordion>
 
-            <div className="mt-12 p-6 bg-gray-50 rounded-lg">
-              <h2 className="text-2xl font-semibold mb-4">Still Have Questions?</h2>
-              <p className="mb-4">
+            <div className="mt-12 p-6 bg-secondary/10 rounded-lg border border-secondary/30">
+              <h2 className="text-2xl font-semibold mb-4 text-primary">Still Have Questions?</h2>
+              <p className="mb-4 text-muted-foreground">
                 Our team is here to help. Contact us through any of the following methods:
               </p>
-              <ul className="space-y-2">
+              <ul className="space-y-2 text-muted-foreground">
                 <li>Email: lindavistavending@gmail.com</li>
                 <li>Phone: (626) 869-6457</li>
-                <li>Hours: Mon-Fri 8am-6pm, Sat 9am-4pm</li>
+                <li>Hours: Open Daily: 7am-9pm</li>
               </ul>
             </div>
           </motion.div>

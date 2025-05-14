@@ -2,10 +2,12 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Mountain, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import Image from 'next/image';
+import { useMobileMenu } from "@/contexts/mobile-menu-context";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -18,7 +20,7 @@ const navItems = [
 export const Navbar = () => {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isMobileMenuOpen, setIsMobileMenuOpen } = useMobileMenu();
 
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
@@ -41,8 +43,13 @@ export const Navbar = () => {
       >
         <nav className="container mx-auto px-4 h-16 flex items-center justify-between relative">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <Mountain className="h-6 w-6 text-blue-500" />
-            <span className="font-bold text-xl">Linda Vista Vending</span>
+            <Image
+              src="/images/logo.png"
+              alt="Linda Vista Vending"
+              className="h-auto w-auto"
+              width={100}
+              height={100}
+            />
           </Link>
           
           {/* Desktop Navigation */}
@@ -81,7 +88,7 @@ export const Navbar = () => {
 
           {/* Desktop CTA Button */}
           <Button 
-            className="hidden md:flex bg-blue-500 hover:bg-blue-600"
+            className="hidden md:flex bg-primary hover:bg-primary/90 text-primary-foreground"
             onClick={() => window.location.href = '/#coverage'}
           >
             Get Started
@@ -111,8 +118,13 @@ export const Navbar = () => {
               <div className="flex flex-col h-full">
                 <div className="absolute top-0 left-0 right-0 px-4 h-16 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Mountain className="h-6 w-6 text-blue-500" />
-                    <span className="font-bold text-xl">Linda Vista Vending</span>
+                    <Image
+                      src="/images/logo.png"
+                      alt="Linda Vista Vending"
+                      className="h-auto w-auto"
+                      width={60}
+                      height={60}
+                    />
                   </div>
                   <Button
                     variant="ghost"
@@ -131,7 +143,7 @@ export const Navbar = () => {
                         {isHomePage ? (
                           <a
                             href={item.href}
-                            className="block text-2xl font-medium text-foreground hover:text-blue-500 transition-colors"
+                            className="block text-2xl font-medium text-foreground hover:text-primary transition-colors"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {item.name}
@@ -139,7 +151,7 @@ export const Navbar = () => {
                         ) : (
                           <Link
                             href={item.href}
-                            className="block text-2xl font-medium text-foreground hover:text-blue-500 transition-colors"
+                            className="block text-2xl font-medium text-foreground hover:text-primary transition-colors"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {item.name}
@@ -151,7 +163,7 @@ export const Navbar = () => {
                 </div>
                 <div className="p-6 border-t">
                   <Button 
-                    className="w-full bg-blue-500 hover:bg-blue-600 text-lg py-6" 
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6" 
                     onClick={() => {
                       setIsMobileMenuOpen(false);
                       window.location.href = '/#coverage';

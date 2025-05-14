@@ -12,33 +12,32 @@ export default function Home() {
   return (
     <ErrorBoundary>
       <Navbar />
-      <MountainBackground />
-      <main className="pt-20">
-        <div className="min-h-[calc(100vh-5rem)]">
+      <main className="pt-16 sm:pt-20">
+        <div className="min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)]">
           <HeroSection />
         </div>
-        <div className="py-24 md:py-32">
-          <ServicesSection />
+        <div className="py-16 sm:py-20 md:py-24 lg:py-32">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <ServicesSection />
+          </div>
         </div>
-        <div className="py-24 md:py-32 bg-white">
-          <CoverageArea />
+        <div className="py-16 sm:py-20 md:py-24 lg:py-32 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <CoverageArea />
+          </div>
         </div>
-        <div className="py-24 md:py-32">
-          <AboutSection />
+        <div className="py-16 sm:py-20 md:py-24 lg:py-32">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <AboutSection />
+          </div>
         </div>
         <section 
           id="contact" 
-          className="py-24 md:py-32 bg-white"
+          className="py-16 sm:py-20 md:py-24 lg:py-32 bg-white"
           aria-labelledby="contact-heading"
         >
-          <div className="container mx-auto px-4 md:px-6">
-            <h2 
-              id="contact-heading" 
-              className="text-3xl md:text-4xl font-bold text-center mb-12"
-            >
-              Contact Us
-            </h2>
-            <ContactForm className="max-w-2xl mx-auto" />
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <ContactForm className="max-w-xl sm:max-w-2xl mx-auto" />
           </div>
         </section>
       </main>
